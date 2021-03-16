@@ -70,7 +70,7 @@
         :effect (and
             (increase(carrying ?w) (numFood ?ta))
             (increase(tableId ?w) (orderId)) ;pass on info to waiter (set to 0 in init s)
-            (increase(tableIdTable ?w) (orderId)) ;pass on info to table (set to 0 in init s)
+            (increase(tableIdTable ?ta) (orderId)) ;pass on info to table (set to 0 in init s)
             (increase(orderId)1)
             (orderTaken ?ta)
         )
