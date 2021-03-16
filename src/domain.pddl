@@ -19,10 +19,11 @@
         (atWaiter ?w - waiter ?ti - tile)
         (atTable ?ta - table ?ti - tile)
         (atKitchen ?ti - tile)
-        (accessible ?w - waiter ?ti1 ?ti2 - tile)
+        (accessible ?ti1 ?ti2 - tile)
 
         ;table predicates
         (orderTaken ?ta - table)
+        (foodDelivered ?ta - table)
 
         ;kitchen predicates
         (foodReady ?ti - tile)
@@ -36,7 +37,7 @@
         (tableId ?w - waiter) ;order the waiter is working on
         (tableIdcook ?ti - tile) ;order the cook is working on
         (tableIdTable ?ta - table) ;order the table is working on
-        (orderId)   ;ID (updated id)
+        (orderId)   ;ID (updated , init: set to 0)
         (numFood ?ta - table)   ;num of food plates they want to order (table)
         (carrying ?w - waiter) ;how many order (num plates) is he delivering to cook
         (total-time-taken)  ;whats the earliest it can be done?
@@ -49,7 +50,7 @@
         :parameters (?w - waiter ?from ?to - tile)
         :precondition (and
             (atWaiter ?w ?from)
-            (accessible ?w ?from ?to)
+            (accessible ?from ?to)
         )
         :effect (and
             (atWaiter ?w ?to) (not(atWaiter ?w ?from))
@@ -136,6 +137,7 @@
             ;(>(numFood) 0)
         )
         :effect (and
+            (foodDelivered ?ta)
             (decrease(carrying ?w) (carrying ?w) )
             (decrease(tableId ?w) (tableId ?w) ) ;pass on info to waiter (set to 0 in init s)
         )
