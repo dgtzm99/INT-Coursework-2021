@@ -41,9 +41,15 @@
         (not(foodReady t1)) 
 
         ;functions
-        (=(cooking t1)0) (=(orderId)0)
+        (=(cooking t1)0) (=(tableIdcook t1)0)
+        (=(tableId bob)0) (=(tableId emily)0)
+        (=(carrying bob)0) (=(carrying emily)0)
+        (=(tableIdTable table1)0) (=(tableIdTable table2)0)
         (=(numFood table1)2) (=(numFood table2)3)
+        (=(total-time-taken)0)
+        (=(total-food-cooked)0)
         (=(isKitchenOccupied)0)
+        (=(orderId)0)
 
     )
     (:goal (and

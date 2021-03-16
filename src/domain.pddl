@@ -34,15 +34,18 @@
     (:functions
 
         (cooking ?ti - tile) ;0=free, non-zero=busy
-        (tableId ?w - waiter) ;order the waiter is working on
         (tableIdcook ?ti - tile) ;order the cook is working on
-        (tableIdTable ?ta - table) ;order the table is working on
-        (orderId)   ;ID (updated , init: set to 0)
-        (numFood ?ta - table)   ;num of food plates they want to order (table)
+
+        (tableId ?w - waiter) ;order the waiter is working on
         (carrying ?w - waiter) ;how many order (num plates) is he delivering to cook
+
+        (tableIdTable ?ta - table) ;order the table is working on
+        (numFood ?ta - table)   ;num of food plates they want to order (table)
+        
         (total-time-taken)  ;whats the earliest it can be done?
         (total-food-cooked)  ;whats the earliest it can be done?
         (isKitchenOccupied) ;1=occupied, 0=notoccupied
+        (orderId)   ;ID (updated , init: set to 0)
     )
 
 
