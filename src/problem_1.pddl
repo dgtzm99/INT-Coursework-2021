@@ -60,4 +60,5 @@
             (foodDelivered table2)
         )
     )
+    (:metric minimize (total-time-taken))
 )
