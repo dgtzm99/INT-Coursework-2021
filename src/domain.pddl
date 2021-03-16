@@ -118,7 +118,7 @@
         )
         :effect (and
             (increase(tableId ?w) (tableIdcook ?ti))
-            (increase(carrying ?w) (cooking ?w))
+            (increase(carrying ?w) (cooking ?ti))
             (decrease(cooking ?ti) (cooking ?ti))
             (not(foodReady ?ti))
             ;(not(isKitchenFree ?ti))
