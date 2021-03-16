@@ -90,6 +90,7 @@
         )
         :effect (and
             (increase(cooking ?ti) (carryingOrder ?w))
+            (decrease(carryingOrder ?w) (carryingOrder ?w))
             (increase(tableIdcook ?ti) (tableId ?w))
             (decrease(tableId ?w) (tableId ?w))
             (increase(isKitchenOccupied)1)
@@ -122,6 +123,7 @@
         )
         :effect (and
             (increase(tableId ?w) (tableIdcook ?ti))
+            (decrease(tableIdcook ?ti) (tableIdcook ?ti))
             (increase(carryingFood ?w) (cooking ?ti))
             (decrease(cooking ?ti) (cooking ?ti))
             (not(foodReady ?ti))
