@@ -50,7 +50,7 @@
         (=(total-time-taken)0)
         (=(total-food-cooked)0)
         (=(isKitchenOccupied)0)
-        (=(orderId)0)
+        (=(orderId)1)
 
     )
     (:goal (and

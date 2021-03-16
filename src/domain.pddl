@@ -46,7 +46,7 @@
         (total-time-taken)  ;whats the earliest it can be done?
         (total-food-cooked)  ;whats the earliest it can be done?
         (isKitchenOccupied) ;1=occupied, 0=notoccupied
-        (orderId)   ;ID (updated , init: set to 0)
+        (orderId)   ;ID (updated , init: set to 1)
     )
 
 
@@ -68,6 +68,7 @@
         :precondition (and
             (atWaiter ?w ?ti)
             (atTable ?ta ?ti)
+            (=(tableIdTable ?ta)0)
             ;(not(orderTaken ?ta))
             ;(>(numFood) 0)
         )
@@ -87,6 +88,7 @@
             (atWaiter ?w ?ti)
             (atKitchen ?ti)
             (= (isKitchenOccupied) 0)   
+            (> (carryingOrder ?w) 0)   
         )
         :effect (and
             (increase(cooking ?ti) (carryingOrder ?w))
