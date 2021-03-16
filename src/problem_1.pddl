@@ -43,7 +43,8 @@
         ;functions
         (=(cooking t1)0) (=(tableIdcook t1)0)
         (=(tableId bob)0) (=(tableId emily)0)
-        (=(carrying bob)0) (=(carrying emily)0)
+        (=(carryingOrder bob)0) (=(carryingOrder emily)0)
+        (=(carryingFood bob)0) (=(carryingFood emily)0)
         (=(tableIdTable table1)0) (=(tableIdTable table2)0)
         (=(numFood table1)2) (=(numFood table2)3)
         (=(total-time-taken)0)

@@ -37,11 +37,12 @@
         (tableIdcook ?ti - tile) ;order the cook is working on
 
         (tableId ?w - waiter) ;order the waiter is working on
-        (carrying ?w - waiter) ;how many order (num plates) is he delivering to cook
+        (carryingOrder ?w - waiter) ;how many order (num plates) is he delivering to cook
+        (carryingFood ?w - waiter) 
 
         (tableIdTable ?ta - table) ;order the table is working on
         (numFood ?ta - table)   ;num of food plates they want to order (table)
-        
+
         (total-time-taken)  ;whats the earliest it can be done?
         (total-food-cooked)  ;whats the earliest it can be done?
         (isKitchenOccupied) ;1=occupied, 0=notoccupied
@@ -71,7 +72,7 @@
             ;(>(numFood) 0)
         )
         :effect (and
-            (increase(carrying ?w) (numFood ?ta))
+            (increase(carryingOrder ?w) (numFood ?ta))
             (increase(tableId ?w) (orderId)) ;pass on info to waiter (set to 0 in init s)
             (increase(tableIdTable ?ta) (orderId)) ;pass on info to table (set to 0 in init s)
             (increase(orderId)1)
@@ -88,7 +89,7 @@
             (= (isKitchenOccupied) 0)   
         )
         :effect (and
-            (increase(cooking ?ti) (carrying ?w))
+            (increase(cooking ?ti) (carryingOrder ?w))
             (increase(tableIdcook ?ti) (tableId ?w))
             (decrease(tableId ?w) (tableId ?w))
             (increase(isKitchenOccupied)1)
@@ -121,7 +122,7 @@
         )
         :effect (and
             (increase(tableId ?w) (tableIdcook ?ti))
-            (increase(carrying ?w) (cooking ?ti))
+            (increase(carryingFood ?w) (cooking ?ti))
             (decrease(cooking ?ti) (cooking ?ti))
             (not(foodReady ?ti))
             ;(not(isKitchenFree ?ti))
@@ -135,13 +136,14 @@
             (atWaiter ?w ?ti)
             (atTable ?ta ?ti)
             (=(tableId ?w)(tableIdTable ?ta))
+            (>(carryingFood ?w)0)
             (orderTaken ?ta)
             ;(not(orderTaken ?ta))
             ;(>(numFood) 0)
         )
         :effect (and
             (foodDelivered ?ta)
-            (decrease(carrying ?w) (carrying ?w) )
+            (decrease(carryingFood ?w) (carryingFood ?w) )
             (decrease(tableId ?w) (tableId ?w) ) ;pass on info to waiter (set to 0 in init s)
         )
         ; :expansion ;deprecated
