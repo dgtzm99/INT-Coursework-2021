@@ -75,13 +75,13 @@
         
 
         ; ;table predicate
-        ; (not(orderTaken table1)) (not(orderTaken table2))
-        ; (not(orderTaken table3)) (not(orderTaken table4))
-        ; (not(orderTaken table5)) (not(orderTaken table6))
-        ; (not(orderTaken table7))
+        (not(orderTaken table1)) (not(orderTaken table2))
+        (not(orderTaken table3)) (not(orderTaken table4))
+        (not(orderTaken table5)) (not(orderTaken table6))
+        (not(orderTaken table7))
 
         ; ;kitchen predicate
-        ; (not(foodReady t1))
+        (not(foodReady t1))
 
         ;functions
         (=(cooking t1)0) (=(tableIdcook t1)0)
