@@ -54,8 +54,8 @@
 
     )
     (:goal (and
-            (orderTaken table1)
-            (orderTaken table2)
+            ;(orderTaken table1)
+            ;(orderTaken table2)
             (foodDelivered table1)
             (foodDelivered table2)
         )
