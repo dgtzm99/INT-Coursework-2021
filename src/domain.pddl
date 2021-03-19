@@ -53,6 +53,8 @@
     (:action move
         :parameters (?w - waiter ?from ?to - tile)
         :precondition (and
+            ;(WAITER ?w) (TILE ?from) (TILE ?to)
+            ;
             (atWaiter ?w ?from)
             (accessible ?from ?to)
         )
@@ -66,6 +68,8 @@
     (:action takeOrder
         :parameters (?w - waiter ?ta - table ?ti - tile)
         :precondition (and
+            ;(WAITER ?w) (TABLE ?ta) (TILE ?ti)
+            ;
             (atWaiter ?w ?ti)
             (atTable ?ta ?ti)
             (=(tableIdTable ?ta)0)
@@ -85,6 +89,8 @@
     (:action deliverToCook
         :parameters (?w - waiter ?ti - tile)
         :precondition (and
+            ;(WAITER ?w) (TILE ?ti)
+            ;
             (atWaiter ?w ?ti)
             (atKitchen ?ti)
             (= (isKitchenOccupied) 0)   
