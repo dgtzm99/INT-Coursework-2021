@@ -35,10 +35,10 @@
         (accessible t13 t17) (accessible t17 t13)
 
         ;table predicate
-        (not(orderTaken table1)) (not(orderTaken table2))
+        ;(not(orderTaken table1)) (not(orderTaken table2))
 
         ;kitchen predicate
-        (not(foodReady t1)) 
+        ;(not(foodReady t1)) 
 
         ;functions
         (=(cooking t1)0) (=(tableIdcook t1)0)
