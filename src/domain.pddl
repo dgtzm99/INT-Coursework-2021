@@ -61,7 +61,7 @@
         )
         :effect (and
             (at end(atWaiter ?w ?to) )
-            (at end(not(atWaiter ?w ?from)))
+            (at start(not(atWaiter ?w ?from)))
             (at end(increase(total-time-taken)1))
         )
         ; :expansion ;deprecated
