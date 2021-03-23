@@ -1,12 +1,12 @@
 (define
     (domain pizza_restaurant)
-    (:requirements :strips :fluents :typing :durative-actions)
+    (:requirements :strips :fluents :durative-actions :duration-inequalities)
     ;typing enable us to identify specific vars
     ;fluents allows us to define functions
 
-    (:types
-        waiter table tile
-    )
+    ;(:types
+    ;    waiter table tile
+    ;)
 
     ;(:domain-variables ) ;deprecated
 
@@ -15,33 +15,41 @@
         ;defining objects
         ;(WAITER ?w)(TABLE ?ta) (TILE ?ta)
 
+        ;identity predicates
+        (waiter ?waiter)
+        (table ?table)
+        (tile ?tile)
+
         ;location predicates
-        (atWaiter ?w - waiter ?ti - tile)
-        (atTable ?ta - table ?ti - tile)
-        (atKitchen ?ti - tile)
-        (accessible ?ti1 ?ti2 - tile)
+        (atWaiter ?waiter ?tile)
+        (atTable ?table ?tile)
+        (atKitchen ?tile)
+        (accessible ?from-tile ?to-tile)
 
         ;table predicates
-        (orderTaken ?ta - table)
-        (foodDelivered ?ta - table)
+        (orderTaken ?table)
+        (foodDelivered ?table)
 
         ;kitchen predicates
-        (foodReady ?ti - tile)
+        (foodReady ?tile)
         ;(occupiedKitchen ?ti - tile)
         ;(isKitchenFree ?ti - tile)
+
+        ;food predicates
+        ;(carryingFood ?waiter ?table)
     )
 
     (:functions
 
-        (cooking ?ti - tile) ;0=free, non-zero=busy
-        (tableIdcook ?ti - tile) ;order the cook is working on
+        (cooking ?tile) ;0=free, non-zero=busy
+        (tableIdcook ?tile) ;order the cook is working on
 
-        (tableId ?w - waiter) ;order the waiter is working on
-        (carryingOrder ?w - waiter) ;how many order (num plates) is he delivering to cook
-        (carryingFood ?w - waiter) 
+        (tableId ?waiter) ;order the waiter is working on
+        (carryingOrder ?waiter) ;how many order (num plates) is he delivering to cook
+        (carryingFood ?waiter) 
 
-        (tableIdTable ?ta - table) ;order the table is working on
-        (numFood ?ta - table)   ;num of food plates they want to order (table)
+        (tableIdTable ?table) ;order the table is working on
+        (numFood ?table)   ;num of food plates they want to order (table)
 
         (total-time-taken)  ;whats the earliest it can be done?
         (total-food-cooked)  ;whats the earliest it can be done?
@@ -51,58 +59,69 @@
 
 
     (:durative-action move
-        :parameters (?w - waiter ?from ?to - tile)
+        :parameters (?waiter ?from-tile ?to-tile)
         :duration (= ?duration 1)
         :condition (and
             ;(WAITER ?w) (TILE ?from) (TILE ?to)
+            ;identity
+            (at start(waiter ?waiter))
+            (at start(tile ?from-tile)) 
+            (at start(tile ?to-tile))
             ;
-            (at start(atWaiter ?w ?from))
-            (over all(accessible ?from ?to))
+            (at start(atWaiter ?waiter ?from-tile))
+            (over all(accessible ?from-tile ?to-tile))
         )
         :effect (and
-            (at end(atWaiter ?w ?to) )
-            (at start(not(atWaiter ?w ?from)))
+            (at end(atWaiter ?waiter ?to-tile) )
+            (at start(not(atWaiter ?waiter ?from-tile)))
             (at end(increase(total-time-taken)1))
         )
         ; :expansion ;deprecated
     )
 
     (:action takeOrder
-        :parameters (?w - waiter ?ta - table ?ti - tile)
+        :parameters (?waiter ?table ?tile)
         :precondition (and
             ;(WAITER ?w) (TABLE ?ta) (TILE ?ti)
+            ;identity
+            (waiter ?waiter)
+            (table ?table) 
+            (tile ?tile)
             ;
-            (atWaiter ?w ?ti)
-            (atTable ?ta ?ti)
-            (=(tableIdTable ?ta)0)
+            (atWaiter ?waiter ?tile)
+            (atTable ?table ?tile)
+            (=(tableIdTable ?table)0)
             ;(not(orderTaken ?ta))
             ;(>(numFood) 0)
         )
         :effect (and
-            (increase(carryingOrder ?w) (numFood ?ta))
-            (increase(tableId ?w) (orderId)) ;pass on info to waiter (set to 0 in init s)
-            (increase(tableIdTable ?ta) (orderId)) ;pass on info to table (set to 0 in init s)
+            (increase(carryingOrder ?waiter) (numFood ?table))
+            (increase(tableId ?waiter) (orderId)) ;pass on info to waiter (set to 0 in init s)
+            (increase(tableIdTable ?table) (orderId)) ;pass on info to table (set to 0 in init s)
             (increase(orderId)1)
-            (orderTaken ?ta)
+            (orderTaken ?table)
         )
         ; :expansion ;deprecated
     )
 
     (:action deliverToCook
-        :parameters (?w - waiter ?ti - tile)
+        :parameters (?waiter ?tile)
         :precondition (and
             ;(WAITER ?w) (TILE ?ti)
+            ;identity
+            (waiter ?waiter)
+            (tile ?tile)
             ;
-            (atWaiter ?w ?ti)
-            (atKitchen ?ti)
+            (atWaiter ?waiter ?tile)
+            (atKitchen ?tile)
             (= (isKitchenOccupied) 0)   
-            (> (carryingOrder ?w) 0)   
+            (> (carryingOrder ?waiter) 0)   
         )
         :effect (and
-            (increase(cooking ?ti) (carryingOrder ?w))
-            (decrease(carryingOrder ?w) (carryingOrder ?w))
-            (increase(tableIdcook ?ti) (tableId ?w))
-            (decrease(tableId ?w) (tableId ?w))
+            (increase(cooking ?tile) (carryingOrder ?waiter))
+            (decrease(carryingOrder ?waiter) (carryingOrder ?waiter))
+            (increase(tableIdcook ?tile) (tableId ?waiter))
+            (decrease(tableId ?waiter) (tableId ?waiter))
             (increase(isKitchenOccupied)1)
             ;(not(isKitchenFree ?ti))
         )
@@ -110,34 +129,42 @@
     )
 
     (:durative-action cook
-        :parameters (?ti - tile)
-        :duration (= ?duration (cooking ?ti))
+        :parameters (?tile)
+        :duration (= ?duration (cooking ?tile))
         :condition (and
+            ;identity
+            (over all (atKitchen ?tile))
+            (over all (tile ?tile))
+
             (at start  (= (isKitchenOccupied) 1)  ) 
         )
         :effect (and
             ;(at end(decrease(cooking ?ti) (cooking ?ti)))
             (at end(decrease (isKitchenOccupied)1))
             (at end(increase(total-food-cooked)1))
-            (at end(foodReady ?ti))
+            (at end(foodReady ?tile))
             (at end(increase(total-time-taken)1))
         )
         ; :expansion ;deprecated
     )
 
     (:action takeFromCook
-        :parameters (?w - waiter ?ti - tile)
+        :parameters (?waiter ?tile)
         :precondition (and
-            (atWaiter ?w ?ti)
-            (atKitchen ?ti)
-            (foodReady ?ti)  
+            ;identity
+            (waiter ?waiter)
+            (tile ?tile)
+
+            (atWaiter ?waiter ?tile)
+            (atKitchen ?tile)
+            (foodReady ?tile)  
         )
         :effect (and
-            (increase(tableId ?w) (tableIdcook ?ti))
-            (decrease(tableIdcook ?ti) (tableIdcook ?ti))
-            (increase(carryingFood ?w) (cooking ?ti))
-            (decrease(cooking ?ti) (cooking ?ti))
-            (not(foodReady ?ti))
+            (increase(tableId ?waiter) (tableIdcook ?tile))
+            (decrease(tableIdcook ?tile) (tableIdcook ?tile))
+            (increase(carryingFood ?waiter) (cooking ?tile))
+            (decrease(cooking ?tile) (cooking ?tile))
+            (not(foodReady ?tile))
             ;(not(isKitchenFree ?ti))
         )
         ; :expansion ;deprecated
@@ -145,20 +172,25 @@
 
 
     (:action deliverToTable
-        :parameters (?w - waiter ?ta - table ?ti - tile)
+        :parameters (?waiter ?table ?tile)
         :precondition (and
-            (atWaiter ?w ?ti)
-            (atTable ?ta ?ti)
-            (=(tableId ?w)(tableIdTable ?ta))
-            (>(carryingFood ?w)0)
-            (orderTaken ?ta)
+            ;identity
+            (waiter ?waiter)
+            (table ?table)
+            (tile ?tile)
+
+            (atWaiter ?waiter ?tile)
+            (atTable ?table ?tile)
+            (=(tableId ?waiter)(tableIdTable ?table))
+            (>(carryingFood ?waiter)0)
+            (orderTaken ?table)
             ;(not(orderTaken ?ta))
             ;(>(numFood) 0)
         )
         :effect (and
-            (foodDelivered ?ta)
-            (decrease(carryingFood ?w) (carryingFood ?w) )
-            (decrease(tableId ?w) (tableId ?w) ) ;pass on info to waiter (set to 0 in init s)
+            (foodDelivered ?table)
+            (decrease(carryingFood ?waiter) (carryingFood ?waiter) )
+            (decrease(tableId ?waiter) (tableId ?waiter) ) ;pass on info to waiter (set to 0 in init s)
         )
         ; :expansion ;deprecated
     )
