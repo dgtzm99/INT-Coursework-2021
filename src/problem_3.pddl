@@ -2,22 +2,32 @@
     (problem problem_3)
     (:domain pizza_restaurant)
     ;(:situation <situation_name>) ;deprecated
-    (:objects bob emily michael
-            table1 table2 table3 table4 table5
-            t1 t2 t3 t4 t5 t6 t7 t8 t9 t10 t11 t12
-            t13 t14 t15 t16 t17 t18 t19 t20 t21)
+    (:objects 
+            david - cook
+            bob emily michael - waiter
+            table1 table2 table3 table4 table5 - table
+            order1 order2 order3 order4 order5 - order
+            t1 t2 t3 t4 t5 t6 t7 t8 t9 t10 t11 t12 - tile
+            t13 t14 t15 t16 t17 t18 t19 t20 t21 - tile)
     (:init
         ;identity predicates
-        (waiter bob) (waiter emily) (waiter michael)
-        (table table1) (table table2) (table table3) (table table4) (table table5)
-        (tile t1) (tile t2) (tile t3) (tile t4) (tile t5)
-        (tile t6) (tile t7) (tile t8) (tile t9) (tile t10)
-        (tile t11) (tile t12) (tile t13) (tile t14) (tile t15)
-        (tile t16) (tile t17) (tile t18) (tile t19) (tile t20) 
-        (tile t21) 
+        ;(cook david)
+        ;(waiter bob) (waiter emily) (waiter michael)
+        ;(table table1) (table table2) (table table3) (table table4) (table table5)
+        ;(order order1) (order order2) (order order3) (order order4) (order order5)
+        ;(tile t1) (tile t2) (tile t3) (tile t4) (tile t5)
+        ;(tile t6) (tile t7) (tile t8) (tile t9) (tile t10)
+        ;(tile t11) (tile t12) (tile t13) (tile t14) (tile t15)
+        ;(tile t16) (tile t17) (tile t18) (tile t19) (tile t20) 
+        ;(tile t21) 
+
+        ;order predicates
+        (waiterFree bob) (waiterFree emily) (waiterFree michael)
+        (orderFrom order1 table1) (orderFrom order2 table2) (orderFrom order3 table3)
+        (orderFrom order4 table4) (orderFrom order5 table5) 
 
         ;locations
-        (atKitchen t1)
+        (atCook david t1)
         (atTable table1 t5) (atTable table2 t3) (atTable table3 t18) (atTable table4 t16) (atTable table5 t9)
         (atWaiter bob t21) (atWaiter emily t13) (atWaiter michael t8)
 
@@ -48,22 +58,16 @@
         (accessible t21 t11) (accessible t11 t21)
 
         ;table predicate
-        (not(orderTaken table1)) (not(orderTaken table2)) (not(orderTaken table3)) (not(orderTaken table4)) (not(orderTaken table5))
+        (orderNotTaken table1) (orderNotTaken table2) (orderNotTaken table3)
+        (orderNotTaken table4) (orderNotTaken table5)
 
         ;kitchen predicate
-        (not(foodReady t1)) 
+        (isCookFree david)
 
         ;functions
-        (=(cooking t1)0) (=(tableIdcook t1)0)
-        (=(tableId bob)0) (=(tableId emily)0) (=(tableId michael)0)
-        (=(carryingOrder bob)0) (=(carryingOrder emily)0) (=(carryingOrder michael)0)
-        (=(carryingFood bob)0) (=(carryingFood emily)0) (=(carryingFood michael)0)
-        (=(tableIdTable table1)0) (=(tableIdTable table2)0) (=(tableIdTable table3)0) (=(tableIdTable table4)0) (=(tableIdTable table5)0)
-        (=(numFood table1)2) (=(numFood table2)3) (=(numFood table3)4) (=(numFood table4)1) (=(numFood table5)8)
+        (=(orderType order1)1) (=(orderType order2)2) (=(orderType order3)3)
+        (=(orderType order4)4) (=(orderType order5)5)
         (=(total-time-taken)0)
-        (=(total-food-cooked)0)
-        (=(isKitchenOccupied)0)
-        (=(orderId)1)
 
     )
     (:goal (and
@@ -72,11 +76,11 @@
             ;(orderTaken table3)
             ;(orderTaken table4)
             ;(orderTaken table5)
-            (foodDelivered table1)
-            (foodDelivered table2)
-            (foodDelivered table3)
-            (foodDelivered table4)
-            (foodDelivered table5)
+            (foodDelivered table1 order1)
+            (foodDelivered table2 order2)
+            (foodDelivered table3 order3)
+            (foodDelivered table4 order4)
+            (foodDelivered table5 order5)
         )
     )
     (:metric minimize (total-time-taken))
