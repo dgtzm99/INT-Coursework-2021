@@ -1,83 +1,76 @@
 (define
-    (problem problem_6)
+    (problem problem_1)
     (:domain pizza_restaurant)
     ;(:situation <situation_name>) ;deprecated
     (:objects
             ;cook
-            david - cook
+            cook1 - cook
 
             ;waiters 
-            bob emily michael - waiter
+            waiter1 waiter2 - waiter
 
             ;tables
-            table1 table2 - table
-            order1 order2 - order
+            tb1 tb2 tb3 tb4- table
+            ord1 ord2 ord3 ord4 - order
 
             ;tiles
-            t1 t2 t3 t4 t5 t6 t7 t8 t9 t10 t11 t12 - tile
-            t13 t14 t15 t16 t17 t18 t19 - tile)
+            t1 t2 t3 t4 t5 t6 t7 - tile
+            t8 t9 t10 t11 t12 t13 t14 - tile
+            t15 t16 t17 t18 t19 t20 t21 - tile)
 
     (:init
 
-        ;identity predicates
-        ;(cook david)
-        ;(waiter bob) (waiter emily) (waiter michael)
-        ;(table table1) (table table2)
-        ;(tile t1) (tile t2) (tile t3) (tile t4) (tile t5)
-        ;(tile t6) (tile t7) (tile t8) (tile t9) (tile t10)
-        ;(tile t11) (tile t12) (tile t13) (tile t14) (tile t15)
-        ;(tile t16) (tile t17) (tile t18) (tile t19)
-        ;(order order1) (order order2)
 
         ;order predicates
-        (waiterFree bob) (waiterFree emily) (waiterFree michael)
-        (orderFrom order1 table1) (orderFrom order2 table2)
+        (waiterFree waiter1) (waiterFree waiter2)
+        (orderFrom ord1 tb1) (orderFrom ord2 tb2) (orderFrom ord3 tb3) (orderFrom ord4 tb4) 
 
         ;locations
-        (atCook david t1)
-        (atTable table1 t15) (atTable table2 t10) ;(atTable table3 t14)
-        (atWaiter bob t2) (atWaiter emily t3) (atWaiter michael t4)
+        (atCook cook1 t11)
+        (atTable tb1 t1) (atTable tb2 t5) (atTable tb3 t17) (atTable tb4 t21)
+        (atWaiter waiter1 t10) (atWaiter waiter2 t12)
 
-        ;tile space
-        (accessible t1 t2) (accessible t2 t1)
-        (accessible t2 t3) (accessible t3 t2)
-        (accessible t3 t4) (accessible t4 t3)
-        (accessible t4 t5) (accessible t5 t4)
-        (accessible t5 t8) (accessible t8 t5)
-        (accessible t8 t11) (accessible t11 t8)
-        (accessible t11 t14) (accessible t14 t11)
-        (accessible t14 t19) (accessible t19 t14)
-        (accessible t19 t18) (accessible t18 t19)
-        (accessible t18 t17) (accessible t17 t18)
-        (accessible t17 t16) (accessible t16 t17)
-        (accessible t16 t15) (accessible t15 t16)
-        (accessible t15 t12) (accessible t12 t15)
-        (accessible t12 t9) (accessible t9 t12)
-        (accessible t9 t6) (accessible t6 t9)
-        (accessible t6 t1) (accessible t1 t6)
-        (accessible t3 t7) (accessible t7 t3)
-        (accessible t7 t10) (accessible t10 t7)
-        (accessible t10 t13) (accessible t13 t10)
-        (accessible t13 t17) (accessible t17 t13)
+;tiles grid
+       (accessible t1 t2) (accessible t1 t6)
+       (accessible t2 t1) (accessible t2 t3)
+       (accessible t3 t2) (accessible t3 t7) (accessible t3 t4)
+       (accessible t4 t3) (accessible t4 t5)
+       (accessible t5 t4) (accessible t5 t8)
+       (accessible t6 t1) (accessible t6 t9)
+       (accessible t7 t3) (accessible t7 t11)
+       (accessible t8 t5) (accessible t8 t3)
+       (accessible t9 t6) (accessible t9 t14) (accessible t9 t10)
+       (accessible t10 t9) (accessible t10 t11)
+       (accessible t11 t7) (accessible t11 t10) (accessible t11 t15) (accessible t11 t12)
+       (accessible t12 t11)(accessible t12 t13)
+       (accessible t13 t12) (accessible t13 t8) (accessible t13 t16)
+       (accessible t14 t9) (accessible t14 t17)
+       (accessible t15 t11) (accessible t15 t19)
+       (accessible t16 t13) (accessible t16 t20)
+       (accessible t17 t14) (accessible t17 t14)
+       (accessible t18 t17) (accessible t18 t19)
+       (accessible t19 t18) (accessible t19 t15) (accessible t19 t20)
+       (accessible t20 t19) (accessible t20 t21) 
+       (accessible t21 t20) (accessible t21 t16)
 
         ;table predicate
-        (orderNotTaken table1) (orderNotTaken table2)
+        (orderNotTaken tb1) (orderNotTaken tb2)
 
         ;kitchen predicate
-        (isCookFree david)
+        (isCookFree cook1)
 
         ;functions
-        (=(orderType order1)1) (=(orderType order2)2)
+        (=(orderType ord1)1) (=(orderType ord2)2) (=(orderType ord3)3) (=(orderType ord4)4)
         (=(total-time-taken)0)
 
     )
     (:goal (and
-            ;(orderTaken table1)
-            ;(orderTaken table2)
-            ;(orderTaken table3)
-            (foodDelivered table1 order1)
-            (foodDelivered table2 order2)
-            ;(foodDelivered table3)
+
+            (foodDelivered tb1 ord1)
+            (foodDelivered tb2 ord2)
+            (foodDelivered tb3 ord3)
+            (foodDelivered tb4 ord4)
+
         )
     )
     (:metric minimize (total-time-taken))
