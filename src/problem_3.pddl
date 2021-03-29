@@ -3,16 +3,16 @@
     (:domain pizza_restaurant)
     ;(:situation <situation_name>) ;deprecated
     (:objects 
-            david - cook
-            bob emily michael - waiter
+            cook1 - cook
+            waiter1 waiter2 waiter3 - waiter
             table1 table2 table3 table4 table5 - table
             order1 order2 order3 order4 order5 - order
             t1 t2 t3 t4 t5 t6 t7 t8 t9 t10 t11 t12 - tile
             t13 t14 t15 t16 t17 t18 t19 t20 t21 - tile)
     (:init
         ;identity predicates
-        ;(cook david)
-        ;(waiter bob) (waiter emily) (waiter michael)
+        ;(cook cook1)
+        ;(waiter waiter1) (waiter waiter2) (waiter waiter3)
         ;(table table1) (table table2) (table table3) (table table4) (table table5)
         ;(order order1) (order order2) (order order3) (order order4) (order order5)
         ;(tile t1) (tile t2) (tile t3) (tile t4) (tile t5)
@@ -22,14 +22,14 @@
         ;(tile t21) 
 
         ;order predicates
-        (waiterFree bob) (waiterFree emily) (waiterFree michael)
+        (waiterFree waiter1) (waiterFree waiter2) (waiterFree waiter3)
         (orderFrom order1 table1) (orderFrom order2 table2) (orderFrom order3 table3)
         (orderFrom order4 table4) (orderFrom order5 table5) 
 
         ;locations
-        (atCook david t1)
+        (atCook cook1 t1)
         (atTable table1 t5) (atTable table2 t3) (atTable table3 t18) (atTable table4 t16) (atTable table5 t9)
-        (atWaiter bob t21) (atWaiter emily t13) (atWaiter michael t8)
+        (atWaiter waiter1 t21) (atWaiter waiter2 t13) (atWaiter waiter3 t8)
 
         ;tile space
         (accessible t1 t2) (accessible t2 t1)
@@ -62,7 +62,7 @@
         (orderNotTaken table4) (orderNotTaken table5)
 
         ;kitchen predicate
-        (isCookFree david)
+        (isCookFree cook1)
 
         ;functions
         (=(orderType order1)1) (=(orderType order2)2) (=(orderType order3)3)

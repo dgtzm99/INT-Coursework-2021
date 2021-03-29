@@ -4,10 +4,10 @@
     ;(:situation <situation_name>) ;deprecated
     (:objects
             ;cook
-            david - cook
+            cook1 - cook
 
             ;waiters 
-            bob emily michael - waiter
+            waiter1 waiter2 waiter3 - waiter
 
             ;tables
             table1 table2 - table
@@ -20,8 +20,8 @@
     (:init
 
         ;identity predicates
-        ;(cook david)
-        ;(waiter bob) (waiter emily) (waiter michael)
+        ;(cook cook1)
+        ;(waiter waiter1) (waiter waiter2) (waiter waiter3)
         ;(table table1) (table table2)
         ;(tile t1) (tile t2) (tile t3) (tile t4) (tile t5)
         ;(tile t6) (tile t7) (tile t8) (tile t9) (tile t10)
@@ -30,13 +30,13 @@
         ;(order order1) (order order2)
 
         ;order predicates
-        (waiterFree bob) (waiterFree emily) (waiterFree michael)
+        (waiterFree waiter1) (waiterFree waiter2) (waiterFree waiter3)
         (orderFrom order1 table1) (orderFrom order2 table2)
 
         ;locations
-        (atCook david t1)
+        (atCook cook1 t1)
         (atTable table1 t15) (atTable table2 t10) ;(atTable table3 t14)
-        (atWaiter bob t2) (atWaiter emily t3) (atWaiter michael t4)
+        (atWaiter waiter1 t2) (atWaiter waiter2 t3) (atWaiter waiter3 t4)
 
         ;tile space
         (accessible t1 t2) (accessible t2 t1)
@@ -64,7 +64,7 @@
         (orderNotTaken table1) (orderNotTaken table2)
 
         ;kitchen predicate
-        (isCookFree david)
+        (isCookFree cook1)
 
         ;functions
         (=(orderType order1)1) (=(orderType order2)2)

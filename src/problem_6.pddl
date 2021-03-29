@@ -10,8 +10,8 @@
             waiter1 waiter2 - waiter
 
             ;tables
-            tb1 tb2 tb3 tb4- table
-            ord1 ord2 ord3 ord4 - order
+            table1 table2 table3 table4 - table
+            order1 order2 order3 order4 - order
 
             ;tiles
             t1 t2 t3 t4 t5 t6 t7 - tile
@@ -23,11 +23,11 @@
 
         ;order predicates
         (waiterFree waiter1) (waiterFree waiter2)
-        (orderFrom ord1 tb1) (orderFrom ord2 tb2) (orderFrom ord3 tb3) (orderFrom ord4 tb4) 
+        (orderFrom order1 table1) (orderFrom order2 table2) (orderFrom order3 table3) (orderFrom order4 table4) 
 
         ;locations
         (atCook cook1 t11)
-        (atTable tb1 t1) (atTable tb2 t5) (atTable tb3 t17) (atTable tb4 t21)
+        (atTable table1 t1) (atTable table2 t5) (atTable table3 t17) (atTable table4 t21)
         (atWaiter waiter1 t10) (atWaiter waiter2 t12)
 
 ;tiles grid
@@ -54,22 +54,23 @@
        (accessible t21 t20) (accessible t21 t16)
 
         ;table predicate
-        (orderNotTaken tb1) (orderNotTaken tb2)
+        (orderNotTaken table1) (orderNotTaken table2)
+        (orderNotTaken table3) (orderNotTaken table4)
 
         ;kitchen predicate
         (isCookFree cook1)
 
         ;functions
-        (=(orderType ord1)1) (=(orderType ord2)2) (=(orderType ord3)3) (=(orderType ord4)4)
+        (=(orderType order1)1) (=(orderType order2)2) (=(orderType order3)3) (=(orderType order4)4)
         (=(total-time-taken)0)
 
     )
     (:goal (and
 
-            (foodDelivered tb1 ord1)
-            (foodDelivered tb2 ord2)
-            (foodDelivered tb3 ord3)
-            (foodDelivered tb4 ord4)
+            (foodDelivered table1 order1)
+            (foodDelivered table2 order2)
+            (foodDelivered table3 order3)
+            (foodDelivered table4 order4)
 
         )
     )
