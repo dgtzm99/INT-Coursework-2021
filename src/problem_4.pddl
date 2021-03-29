@@ -5,8 +5,8 @@
     (:objects 
             cook1 - cook
             waiter1 waiter2 waiter3 - waiter
-            table1 table2 table3 table4 table5 table6 table7 - table
-            order1 order2 order3 order4  order5 order6 order7 - order
+            table1 table2 table3 table4 - table
+            order1 order2 order3 order4 - order
             t1 t2 t3 t4 t5 t6 t7 t8 t9 t10 t11 t12 - tile
             t13 t14 t15 t16 t17 t18 t19 t20 t21 t22 - tile
             t23 t24 t25 t26 t27 t28 t29 t30 - tile)
@@ -25,14 +25,11 @@
         (waiterFree waiter1) (waiterFree waiter2) (waiterFree waiter3)
         (orderFrom order1 table1) (orderFrom order2 table2)
         (orderFrom order3 table3) (orderFrom order4 table4)
-        (orderFrom order5 table5) (orderFrom order6 table6)
-        (orderFrom order7 table7)
         
        ;locations
         (atCook cook1 t3) 
         (atTable table1 t1) (atTable table2 t5) 
-        (atTable table3 t17) (atTable table4 t19) (atTable table5 t26)
-        (atTable table6 t28) (atTable table7 t30)
+        (atTable table3 t17) (atTable table4 t19)
         (atWaiter waiter1 t7) (atWaiter waiter2 t8)
         (atWaiter waiter3 t9)
 
@@ -97,8 +94,6 @@
         ; ;table predicate
         (orderNotTaken table1) (orderNotTaken table2)
         (orderNotTaken table3) (orderNotTaken table4)
-        (orderNotTaken table5) (orderNotTaken table6)
-        (orderNotTaken table7)
 
 
         ;kitchen predicate
@@ -107,8 +102,6 @@
         ;functions
         (=(orderType order1)1) (=(orderType order2)2)
         (=(orderType order3)3) (=(orderType order4)4)
-        (=(orderType order5)1) (=(orderType order6)5)
-        (=(orderType order7)4)
         (=(total-time-taken)0)
     )
     (:goal (and
@@ -116,9 +109,6 @@
             (foodDelivered table2 order2)
             (foodDelivered table3 order3)
             (foodDelivered table4 order4)
-            (foodDelivered table5 order5)
-            (foodDelivered table6 order6)
-            (foodDelivered table7 order7)
         )
     )
     (:metric minimize (total-time-taken))
