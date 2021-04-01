@@ -69,6 +69,9 @@
         ;functions
         (=(orderType order1)1) (=(orderType order2)2)
         (=(total-time-taken)0)
+        ;(=(ordersCarrying waiter1)0) (=(foodCarrying waiter1)0)
+        ;(=(ordersCarrying waiter2)0) (=(foodCarrying waiter2)0)
+        ;(=(ordersCarrying waiter3)0) (=(foodCarrying waiter3)0)
 
     )
     (:goal (and

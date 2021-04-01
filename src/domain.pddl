@@ -42,11 +42,18 @@
         (isCookFree ?cook - cook)
         (isCookBusy ?cook - cook)
 
+        ;carrying restrictions
+
     )
 
     (:functions
 
         (orderType ?order - order)
+        ;can take 1 orders at a time
+        ;(ordersCarrying ?waiter - waiter)
+        ;
+        ;can carry 1 food at a time
+        ;(foodCarrying ?waiter - waiter)
         (total-time-taken)  ;whats the earliest it can be done?
 
     )
@@ -79,16 +86,18 @@
             ;(table ?table) 
             ;(tile ?tile)
             ;(order ?order)
-
+            ;(< (ordersCarrying ?waiter)1) ;can take 1 ord at a time
             (orderFrom ?order ?table)
             (atWaiter ?waiter ?tile)
             (atTable ?table ?tile)
             (orderNotTaken ?table)
+            (waiterFree ?waiter)
         )
         :effect (and
             (not(orderNotTaken ?table))
             (orderTaken ?table)
             (holdingOrder ?waiter ?order)
+            ;(increase (ordersCarrying ?waiter)1)
             (not(waiterFree ?waiter))
             (foodNotReady ?order)
         )
@@ -102,7 +111,7 @@
             ;(waiter ?waiter)
             ;(tile ?tile)
             ;(order ?order)
-            
+            ;(=(ordersCarrying ?waiter)1)
             (holdingOrder ?waiter ?order)
             (atWaiter ?waiter ?tile)
             (atCook ?cook ?tile)
@@ -110,6 +119,7 @@
             (foodNotReady ?order)
         )
         :effect (and
+            ;(decrease (ordersCarrying ?waiter)1)
             (cookHolding ?cook ?order)
             (not(holdingOrder ?waiter ?order))
             (not(isCookFree ?cook))
@@ -148,7 +158,7 @@
             ;(waiter ?waiter)
             ;(tile ?tile)
             ;(order ?order)
-
+            ;(< (foodCarrying ?waiter)1) 
             (atWaiter ?waiter ?tile)
             (atCook ?cook ?tile)
             (foodReady ?order) 
@@ -156,6 +166,7 @@
             (cookHolding ?cook ?order)
         )
         :effect (and
+            ;(increase (foodCarrying ?waiter)1) 
             (not (waiterFree ?waiter))
             (holdingOrder ?waiter ?order)
             (not (cookHolding ?cook ?order))
@@ -171,7 +182,7 @@
             ;(table ?table)
             ;(tile ?tile)
             ;(order ?order)
-
+            ;(= (foodCarrying ?waiter)1) 
             (foodReady ?order) 
             (atWaiter ?waiter ?tile)
             (atTable ?table ?tile)
@@ -180,6 +191,7 @@
             (orderTaken ?table)
         )
         :effect (and
+            ;(decrease (foodCarrying ?waiter)1) 
             (foodDelivered ?table ?order)
             (not (holdingOrder ?waiter ?order))
             (waiterFree ?waiter)

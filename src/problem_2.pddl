@@ -56,6 +56,10 @@
         ;functions 
         (=(orderType order1)1) (=(orderType order2)2) (=(orderType order3)3)
         (=(total-time-taken)0)
+        ;new (carrying restrictions)
+        ;(=(ordersCarrying waiter1)0) (=(foodCarrying waiter1)0)
+        ;(=(ordersCarrying waiter2)0) (=(foodCarrying waiter2)0)
+
 
 
     )
