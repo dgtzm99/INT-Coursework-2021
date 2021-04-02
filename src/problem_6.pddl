@@ -3,7 +3,7 @@
     (:domain pizza_restaurant)
     ;(:situation <situation_name>) ;deprecated
     (:objects
-            ;cook
+            ;kitchen
             kitchen1
 
             ;waiters 
