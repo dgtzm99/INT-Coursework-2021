@@ -121,7 +121,7 @@
 
 
         ;kitchen predicate
-        (isKitchenFree cook1)
+        (isKitchenFree kitchen1)
 
         ;functions
         (=(orderType order1)1) (=(orderType order2)2)
