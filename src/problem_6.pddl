@@ -26,6 +26,7 @@
         (table table1) (table table2) (table table3) (table table4)
         (location table1) (location table2) (location table3) 
         (location table4) (location kitchen1)
+        (order order1) (order order2) (order order3) (order order4)
 
         ;order predicates
         (waiterFree waiter1) (waiterFree waiter2)
@@ -93,12 +94,10 @@
 
     )
     (:goal (and
-
             (foodDelivered table1 order1)
             (foodDelivered table2 order2)
             (foodDelivered table3 order3)
             (foodDelivered table4 order4)
-
         )
     )
     (:metric minimize (total-time-taken))

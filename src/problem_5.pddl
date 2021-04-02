@@ -24,6 +24,8 @@
         (location table1) (location table2) (location table3) 
         (location table4) (location table5) (location table6)
         (location kitchen1)
+        (order order1) (order order2) (order order3) (order order4)
+        (order order5) (order order6)
 
         ;order predicates
         (waiterFree waiter1) (waiterFree waiter2) (waiterFree waiter3)
@@ -55,22 +57,25 @@
         ;table predicate
         (orderNotTaken table1) (orderNotTaken table2)
         (orderNotTaken table3) (orderNotTaken table4)
+        (orderNotTaken table5) (orderNotTaken table6)
 
         ;kitchen predicate
         (isKitchenFree kitchen1)
 
         ;functions
-        (=(orderType order1)1) (=(orderType order2)2) (=(orderType order3)3) (=(orderType order4)4)
+        (=(orderType order1)2) (=(orderType order2)3) 
+        (=(orderType order3)3) (=(orderType order4)4)
+        (=(orderType order5)7) (=(orderType order6)5)
         (=(total-time-taken)0)
 
     )
     (:goal (and
-
             (foodDelivered table1 order1)
             (foodDelivered table2 order2)
             (foodDelivered table3 order3)
             (foodDelivered table4 order4)
-
+            (foodDelivered table5 order5)
+            (foodDelivered table6 order6)
         )
     )
     (:metric minimize (total-time-taken))
