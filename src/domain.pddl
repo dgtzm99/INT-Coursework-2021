@@ -1,46 +1,50 @@
 (define
     (domain pizza_restaurant)
-    (:requirements :strips :numeric-fluents :durative-actions :typing)
+    (:requirements :strips :numeric-fluents :durative-actions)
     ;typing enable us to identify specific vars
     ;fluents allows us to define functions
 
-    (:types
-        waiter table tile cook order
-    )
+    ;(:types
+    ;    ;waiter table location cook order
+    ;    kitchen table - location
+    ;    waiter - waiter
+    ;    order - order
+    ;)
 
     ;(:domain-variables ) ;deprecated
 
     (:predicates
 
         ;identity predicates
-        ;(waiter ?waiter)
-        ;(cook ?cook)
-        ;(table ?table)
-        ;(tile ?tile)
-        ;(order ?order)
+        (waiter ?waiter)
+        (kitchen ?kitchen)
+        (table ?table)
+        (location ?location)
+        (order ?order)
 
         ;order predicates
-        (waiterFree ?waiter - waiter)
-        (holdingOrder ?waiter - waiter ?order - order)
-        (cookHolding ?cook - cook ?order - order)
-        (orderFrom ?order - order ?table - table); this is how we substitute IDs
+        (waiterFree ?waiter)
+        (holdingOrder ?waiter ?order)
+        (kitchenHolding ?kitchen ?order)
+        (orderFrom ?order ?table); this is how we substitute IDs
 
         ;location predicates
-        (atWaiter ?waiter - waiter ?tile - tile)
-        (atTable ?table - table ?tile - tile)
-        (atCook ?cook - cook ?tile - tile)
-        (accessible ?from-tile - tile ?to-tile - tile)
+        (atWaiter ?waiter ?location)
+        ;(atTable ?table - table ?location - location)
+        ;(atKitchen ?kitchen - kitchen ?location - location)
+        ;(accessible ?from-location - location ?to-location - location)
+        ;(accessible ?from-loc - location ?to-loc - location)
 
         ;table predicates
-        (orderTaken ?table - table)
-        (orderNotTaken ?table - table)
-        (foodDelivered ?table - table ?order - order)
+        (orderTaken ?table)
+        (orderNotTaken ?table)
+        (foodDelivered ?table ?order)
 
         ;kitchen predicates
-        (foodReady ?order - order)
-        (foodNotReady ?order - order)
-        (isCookFree ?cook - cook)
-        (isCookBusy ?cook - cook)
+        (foodReady ?order)
+        (foodNotReady ?order)
+        (isKitchenFree ?kitchen)
+        (isKitchenBusy ?kitchen)
 
         ;carrying restrictions
 
@@ -48,48 +52,44 @@
 
     (:functions
 
-        (orderType ?order - order)
-        ;can take 1 orders at a time
-        ;(ordersCarrying ?waiter - waiter)
-        ;
-        ;can carry 1 food at a time
-        ;(foodCarrying ?waiter - waiter)
+        (orderType ?order)
+        (time-to-walk ?from-loc ?to-loc)
         (total-time-taken)  ;whats the earliest it can be done?
 
     )
 
 
     (:durative-action move
-        :parameters (?waiter - waiter ?from-tile - tile ?to-tile - tile)
-        :duration (= ?duration 1)
+        :parameters (?waiter ?from-loc ?to-loc)
+        :duration (= ?duration (time-to-walk ?from-loc ?to-loc))
         :condition (and
             ;identity
-            ;(at start (waiter ?waiter))
-            ;(at start (tile ?from-tile))
-            ;(at start (tile ?to-tile))
+            (at start (waiter ?waiter))
+            (at start (location ?from-loc))
+            (at start (location ?to-loc))
             
-            (at start(atWaiter ?waiter ?from-tile))
-            (over all(accessible ?from-tile ?to-tile))
+            (at start(atWaiter ?waiter ?from-loc))
+            ;(over all(accessible ?from-loc ?to-loc))
         )
         :effect (and
-            (at start(not(atWaiter ?waiter ?from-tile)))
-            (at end(atWaiter ?waiter ?to-tile) )
-            (at end(increase(total-time-taken)1))
+            (at start(not(atWaiter ?waiter ?from-loc)))
+            (at end(atWaiter ?waiter ?to-loc) )
+            (at end(increase(total-time-taken)(time-to-walk ?from-loc ?to-loc)))
         )
     )
 
     (:action takeOrder
-        :parameters (?waiter - waiter ?table - table ?tile - tile ?order - order)
+        :parameters (?waiter ?table ?order)
         :precondition (and
             ;identity
-            ;(waiter ?waiter)
-            ;(table ?table) 
-            ;(tile ?tile)
-            ;(order ?order)
+            (waiter ?waiter)
+            (table ?table) 
+            ;(location ?location)
+            (order ?order)
             ;(< (ordersCarrying ?waiter)1) ;can take 1 ord at a time
             (orderFrom ?order ?table)
-            (atWaiter ?waiter ?tile)
-            (atTable ?table ?tile)
+            (atWaiter ?waiter ?table)
+            ;(atTable ?table ?location)
             (orderNotTaken ?table)
             (waiterFree ?waiter)
         )
@@ -104,88 +104,88 @@
     )
 
     (:action deliverToCook
-        :parameters (?waiter - waiter ?cook - cook ?tile - tile ?order - order)
+        :parameters (?waiter ?kitchen ?order)
         :precondition (and
             ;identity
-            ;(cook ?cook)
-            ;(waiter ?waiter)
-            ;(tile ?tile)
-            ;(order ?order)
+            (kitchen ?kitchen)
+            (waiter ?waiter)
+            ;(location ?location)
+            (order ?order)
             ;(=(ordersCarrying ?waiter)1)
             (holdingOrder ?waiter ?order)
-            (atWaiter ?waiter ?tile)
-            (atCook ?cook ?tile)
-            (isCookFree ?cook)
+            (atWaiter ?waiter ?kitchen)
+            ;(atKitchen ?kitchen ?location)
+            (isKitchenFree ?kitchen)
             (foodNotReady ?order)
         )
         :effect (and
             ;(decrease (ordersCarrying ?waiter)1)
-            (cookHolding ?cook ?order)
+            (kitchenHolding ?kitchen ?order)
             (not(holdingOrder ?waiter ?order))
-            (not(isCookFree ?cook))
-            (isCookBusy ?cook)
+            (not(isKitchenFree ?kitchen))
+            (isKitchenBusy ?kitchen)
             (waiterFree ?waiter)
         )
     )
 
     (:durative-action cook
-        :parameters (?cook - cook ?order - order ?tile - tile)
+        :parameters (?kitchen ?order); deleted loc
         :duration (= ?duration (orderType ?order))
         :condition (and
             ;identity
-            ;(at start (tile ?tile))
-            ;(at start (cook ?cook))
-            ;(at start(order ?order))
+            ;(at start (location ?location))
+            (at start (kitchen ?kitchen))
+            (at start(order ?order))
 
-            (over all (atCook ?cook ?tile))
-            (over all (cookHolding ?cook ?order))
-            (at start (isCookBusy ?cook)) 
+            ;(over all (atKitchen ?kitchen ?location))
+            (over all (kitchenHolding ?kitchen ?order))
+            (at start (isKitchenBusy ?kitchen)) 
         )
         :effect (and
-            (at end (isCookFree ?cook))
-            (at start (not (isCookBusy ?cook)))
+            (at end (isKitchenFree ?kitchen))
+            (at start (not (isKitchenBusy ?kitchen)))
             (at end(foodReady ?order))
             (at start(not (foodNotReady ?order)))
-            (at end(increase(total-time-taken)1))
+            (at end(increase(total-time-taken)(orderType ?order)))
         )
     )
 
     (:action takeFromCook
-        :parameters (?waiter - waiter ?cook - cook ?order - order ?tile - tile)
+        :parameters (?waiter ?kitchen ?order)
         :precondition (and
             ;identity
-            ;(cook ?cook)
-            ;(waiter ?waiter)
-            ;(tile ?tile)
-            ;(order ?order)
+            (kitchen ?kitchen)
+            (waiter ?waiter)
+            ;(location ?location)
+            (order ?order)
             ;(< (foodCarrying ?waiter)1) 
-            (atWaiter ?waiter ?tile)
-            (atCook ?cook ?tile)
+            (atWaiter ?waiter ?kitchen)
+            ;(atKitchen ?kitchen ?location)
             (foodReady ?order) 
             (waiterFree ?waiter)
-            (cookHolding ?cook ?order)
+            (kitchenHolding ?kitchen ?order)
         )
         :effect (and
             ;(increase (foodCarrying ?waiter)1) 
             (not (waiterFree ?waiter))
             (holdingOrder ?waiter ?order)
-            (not (cookHolding ?cook ?order))
+            (not (kitchenHolding ?kitchen ?order))
         )
     )
 
 
     (:action deliverToTable
-        :parameters (?waiter - waiter ?table - table ?order - order ?tile - tile)
+        :parameters (?waiter ?table ?order)
         :precondition (and
             ;identity
-            ;(waiter ?waiter)
-            ;(table ?table)
-            ;(tile ?tile)
-            ;(order ?order)
+            (waiter ?waiter)
+            (table ?table)
+            ;(location ?location)
+            (order ?order)
             ;(= (foodCarrying ?waiter)1) 
             (foodReady ?order) 
-            (atWaiter ?waiter ?tile)
-            (atTable ?table ?tile)
+            (atWaiter ?waiter ?table)
+            ;(atTable ?table ?location)
             (holdingOrder ?waiter ?order)
             (orderFrom ?order ?table)
             (orderTaken ?table)
