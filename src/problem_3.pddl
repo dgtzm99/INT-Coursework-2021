@@ -5,10 +5,11 @@
     (:objects
             ;kitchen
             kitchen1 kitchen2 kitchen3 kitchen4 kitchen5
+            kitchen6 kitchen7 kitchen8 kitchen9 kitchen10
 
             ;waiters 
-            waiter1 waiter2 waiter3 waiter4 waiter5
-            waiter6 waiter7 waiter8 waiter9 waiter10
+            waiter1 ;waiter2; waiter3 waiter4 waiter5
+            ;waiter6 waiter7 waiter8 waiter9 waiter10
 
             ;tables
             table1 table2 table3 table4 table5 table6
@@ -30,10 +31,15 @@
         (kitchen kitchen3) (location kitchen3)
         (kitchen kitchen4) (location kitchen4)
         (kitchen kitchen5) (location kitchen5)
+        (kitchen kitchen6) (location kitchen6)
+        (kitchen kitchen7) (location kitchen7)
+        (kitchen kitchen8) (location kitchen8)
+        (kitchen kitchen9) (location kitchen9)
+        (kitchen kitchen10) (location kitchen10)
 
-        (waiter waiter1) (waiter waiter2) (waiter waiter3) (waiter waiter4)
-        (waiter waiter5) (waiter waiter6) (waiter waiter7) (waiter waiter8)
-        (waiter waiter9) (waiter waiter10) 
+        (waiter waiter1) ;(waiter waiter2) ;(waiter waiter3) (waiter waiter4)
+        ;(waiter waiter5) (waiter waiter6) (waiter waiter7) (waiter waiter8)
+        ;(waiter waiter9) (waiter waiter10) 
 
         (table table1) (table table2) (table table3) (table table4)
         (table table5) (table table6) (table table7) (table table8)
@@ -58,9 +64,9 @@
 
 
         ;order predicates
-        (waiterFree waiter1) (waiterFree waiter2) (waiterFree waiter3) (waiterFree waiter4)
-        (waiterFree waiter5) (waiterFree waiter6) (waiterFree waiter7) (waiterFree waiter8)
-        (waiterFree waiter9) (waiterFree waiter10) 
+        (waiterFree waiter1); (waiterFree waiter2) ;(waiterFree waiter3) (waiterFree waiter4)
+        ;(waiterFree waiter5) (waiterFree waiter6) (waiterFree waiter7) (waiterFree waiter8)
+        ;(waiterFree waiter9) (waiterFree waiter10) 
         (orderFrom order1 table1) (orderFrom order2 table2)
         (orderFrom order3 table3) (orderFrom order4 table4)
         (orderFrom order5 table5) (orderFrom order6 table6)
@@ -75,10 +81,10 @@
         (orderFrom order23 table23) (orderFrom order24 table24)
 
         ;locations
-        (atWaiter waiter1 kitchen1) (atWaiter waiter2 kitchen1) (atWaiter waiter3 kitchen2)
-        (atWaiter waiter4 kitchen2) (atWaiter waiter5 kitchen3) (atWaiter waiter6 kitchen3)
-        (atWaiter waiter7 kitchen4) (atWaiter waiter8 kitchen4) (atWaiter waiter9 kitchen5)
-        (atWaiter waiter10 kitchen5)
+        (atWaiter waiter1 kitchen1) ;(atWaiter waiter2 kitchen2); (atWaiter waiter3 kitchen2)
+        ;(atWaiter waiter4 kitchen2) (atWaiter waiter5 kitchen3) (atWaiter waiter6 kitchen3)
+        ;(atWaiter waiter7 kitchen4) (atWaiter waiter8 kitchen4) (atWaiter waiter9 kitchen5)
+        ;(atWaiter waiter10 kitchen5)
 
         ;tile space
             ;kitchen2table
@@ -513,15 +519,56 @@
         (=(time-to-walk kitchen1 kitchen3)5) (=(time-to-walk kitchen3 kitchen1)5)
         (=(time-to-walk kitchen1 kitchen4)5) (=(time-to-walk kitchen4 kitchen1)5)
         (=(time-to-walk kitchen1 kitchen5)5) (=(time-to-walk kitchen5 kitchen1)5)
+        (=(time-to-walk kitchen1 kitchen6)5) (=(time-to-walk kitchen6 kitchen1)5)
+        (=(time-to-walk kitchen1 kitchen7)5) (=(time-to-walk kitchen7 kitchen1)5)
+        (=(time-to-walk kitchen1 kitchen8)5) (=(time-to-walk kitchen8 kitchen1)5)
+        (=(time-to-walk kitchen1 kitchen9)5) (=(time-to-walk kitchen9 kitchen1)5)
+        (=(time-to-walk kitchen1 kitchen10)5) (=(time-to-walk kitchen10 kitchen1)5)
 
         (=(time-to-walk kitchen2 kitchen3)5) (=(time-to-walk kitchen3 kitchen2)5)
         (=(time-to-walk kitchen2 kitchen4)5) (=(time-to-walk kitchen4 kitchen2)5)
         (=(time-to-walk kitchen2 kitchen5)5) (=(time-to-walk kitchen5 kitchen2)5)
+        (=(time-to-walk kitchen2 kitchen6)5) (=(time-to-walk kitchen6 kitchen2)5)
+        (=(time-to-walk kitchen2 kitchen7)5) (=(time-to-walk kitchen7 kitchen2)5)
+        (=(time-to-walk kitchen2 kitchen8)5) (=(time-to-walk kitchen8 kitchen2)5)
+        (=(time-to-walk kitchen2 kitchen9)5) (=(time-to-walk kitchen9 kitchen2)5)
+        (=(time-to-walk kitchen2 kitchen10)5) (=(time-to-walk kitchen10 kitchen2)5)
 
         (=(time-to-walk kitchen3 kitchen4)5) (=(time-to-walk kitchen4 kitchen3)5)
         (=(time-to-walk kitchen3 kitchen5)5) (=(time-to-walk kitchen5 kitchen3)5)
+        (=(time-to-walk kitchen3 kitchen6)5) (=(time-to-walk kitchen6 kitchen3)5)
+        (=(time-to-walk kitchen3 kitchen7)5) (=(time-to-walk kitchen7 kitchen3)5)
+        (=(time-to-walk kitchen3 kitchen8)5) (=(time-to-walk kitchen8 kitchen3)5)
+        (=(time-to-walk kitchen3 kitchen9)5) (=(time-to-walk kitchen9 kitchen3)5)
+        (=(time-to-walk kitchen3 kitchen10)5) (=(time-to-walk kitchen10 kitchen3)5)
 
         (=(time-to-walk kitchen4 kitchen5)5) (=(time-to-walk kitchen5 kitchen4)5)
+        (=(time-to-walk kitchen4 kitchen6)5) (=(time-to-walk kitchen6 kitchen4)5)
+        (=(time-to-walk kitchen4 kitchen7)5) (=(time-to-walk kitchen7 kitchen4)5)
+        (=(time-to-walk kitchen4 kitchen8)5) (=(time-to-walk kitchen8 kitchen4)5)
+        (=(time-to-walk kitchen4 kitchen9)5) (=(time-to-walk kitchen9 kitchen4)5)
+        (=(time-to-walk kitchen4 kitchen10)5) (=(time-to-walk kitchen10 kitchen4)5)
+
+        (=(time-to-walk kitchen5 kitchen6)5) (=(time-to-walk kitchen6 kitchen5)5)
+        (=(time-to-walk kitchen5 kitchen7)5) (=(time-to-walk kitchen7 kitchen5)5)
+        (=(time-to-walk kitchen5 kitchen8)5) (=(time-to-walk kitchen8 kitchen5)5)
+        (=(time-to-walk kitchen5 kitchen9)5) (=(time-to-walk kitchen9 kitchen5)5)
+        (=(time-to-walk kitchen5 kitchen10)5) (=(time-to-walk kitchen10 kitchen5)5)
+
+        (=(time-to-walk kitchen6 kitchen7)5) (=(time-to-walk kitchen7 kitchen6)5)
+        (=(time-to-walk kitchen6 kitchen8)5) (=(time-to-walk kitchen8 kitchen6)5)
+        (=(time-to-walk kitchen6 kitchen9)5) (=(time-to-walk kitchen9 kitchen6)5)
+        (=(time-to-walk kitchen6 kitchen10)5) (=(time-to-walk kitchen10 kitchen6)5)
+
+        (=(time-to-walk kitchen7 kitchen8)5) (=(time-to-walk kitchen8 kitchen7)5)
+        (=(time-to-walk kitchen7 kitchen9)5) (=(time-to-walk kitchen9 kitchen7)5)
+        (=(time-to-walk kitchen7 kitchen10)5) (=(time-to-walk kitchen10 kitchen7)5)
+
+        (=(time-to-walk kitchen8 kitchen9)5) (=(time-to-walk kitchen9 kitchen8)5)
+        (=(time-to-walk kitchen8 kitchen10)5) (=(time-to-walk kitchen10 kitchen8)5)
+
+        (=(time-to-walk kitchen9 kitchen10)5) (=(time-to-walk kitchen10 kitchen9)5)
+
 
         
 
@@ -546,20 +593,25 @@
         (isKitchenFree kitchen3)
         (isKitchenFree kitchen4)
         (isKitchenFree kitchen5)
+        (isKitchenFree kitchen6)
+        (isKitchenFree kitchen7)
+        (isKitchenFree kitchen8)
+        (isKitchenFree kitchen9)
+        (isKitchenFree kitchen10)
 
         ;functions
-        (=(orderType order1)1) (=(orderType order2)2)
-        (=(orderType order3)3) (=(orderType order4)4)
-        (=(orderType order5)5) (=(orderType order6)6)
-        (=(orderType order7)1) (=(orderType order8)2)
-        (=(orderType order9)3) (=(orderType order10)4)
-        (=(orderType order11)5) (=(orderType order12)6)
-        (=(orderType order13)1) (=(orderType order14)2)
-        (=(orderType order15)3) (=(orderType order16)4)
-        (=(orderType order17)5) (=(orderType order18)6)
-        (=(orderType order19)1) (=(orderType order20)2)
-        (=(orderType order21)3) (=(orderType order22)4)
-        (=(orderType order23)5) (=(orderType order24)6)
+        (=(order-cooking-time order1)1) (=(order-cooking-time order2)2)
+        (=(order-cooking-time order3)3) (=(order-cooking-time order4)4)
+        (=(order-cooking-time order5)5) (=(order-cooking-time order6)6)
+        (=(order-cooking-time order7)1) (=(order-cooking-time order8)2)
+        (=(order-cooking-time order9)3) (=(order-cooking-time order10)4)
+        (=(order-cooking-time order11)5) (=(order-cooking-time order12)6)
+        (=(order-cooking-time order13)1) (=(order-cooking-time order14)2)
+        (=(order-cooking-time order15)3) (=(order-cooking-time order16)4)
+        (=(order-cooking-time order17)5) (=(order-cooking-time order18)6)
+        (=(order-cooking-time order19)1) (=(order-cooking-time order20)2)
+        (=(order-cooking-time order21)3) (=(order-cooking-time order22)4)
+        (=(order-cooking-time order23)5) (=(order-cooking-time order24)6)
        
         (=(total-time-taken)0)
 

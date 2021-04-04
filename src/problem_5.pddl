@@ -63,9 +63,9 @@
         (isKitchenFree kitchen1)
 
         ;functions
-        (=(orderType order1)2) (=(orderType order2)3) 
-        (=(orderType order3)3) (=(orderType order4)4)
-        (=(orderType order5)7) (=(orderType order6)5)
+        (=(order-cooking-time order1)2) (=(order-cooking-time order2)3) 
+        (=(order-cooking-time order3)3) (=(order-cooking-time order4)4)
+        (=(order-cooking-time order5)7) (=(order-cooking-time order6)5)
         (=(total-time-taken)0)
 
     )

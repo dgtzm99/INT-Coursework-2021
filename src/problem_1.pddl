@@ -57,7 +57,7 @@
         (isKitchenFree kitchen1)
 
         ;functions
-        (=(orderType order1)1) (=(orderType order2)2)
+        (=(order-cooking-time order1)1) (=(order-cooking-time order2)2)
         (=(total-time-taken)0)
         ;(=(ordersCarrying waiter1)0) (=(foodCarrying waiter1)0)
         ;(=(ordersCarrying waiter2)0) (=(foodCarrying waiter2)0)

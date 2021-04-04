@@ -97,9 +97,9 @@
         (isKitchenFree kitchen2)
 
         ;functions
-        (=(orderType order1)16) (=(orderType order2)23)
-        (=(orderType order3)14) (=(orderType order4)22)
-        (=(orderType order5)14) (=(orderType order6)32)
+        (=(order-cooking-time order1)16) (=(order-cooking-time order2)23)
+        (=(order-cooking-time order3)14) (=(order-cooking-time order4)22)
+        (=(order-cooking-time order5)14) (=(order-cooking-time order6)32)
        
         (=(total-time-taken)0)
 

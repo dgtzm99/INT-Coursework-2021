@@ -1,8 +1,6 @@
 (define
     (domain pizza_restaurant)
     (:requirements :strips :numeric-fluents :durative-actions)
-    ;typing enable us to identify specific vars
-    ;fluents allows us to define functions
 
     ;(:types
     ;    ;waiter table location cook order
@@ -22,39 +20,37 @@
         (location ?location)
         (order ?order)
 
-        ;order predicates
+        ;waiter predicates
         (waiterFree ?waiter)
         (holdingOrder ?waiter ?order)
-        (kitchenHolding ?kitchen ?order)
-        (orderFrom ?order ?table); this is how we substitute IDs
 
         ;location predicates
         (atWaiter ?waiter ?location)
-        ;(atTable ?table - table ?location - location)
-        ;(atKitchen ?kitchen - kitchen ?location - location)
-        ;(accessible ?from-location - location ?to-location - location)
-        ;(accessible ?from-loc - location ?to-loc - location)
 
         ;table predicates
+        (orderFrom ?order ?table)
         (orderTaken ?table)
         (orderNotTaken ?table)
         (foodDelivered ?table ?order)
 
         ;kitchen predicates
+        (kitchenHolding ?kitchen ?order)
         (foodReady ?order)
         (foodNotReady ?order)
         (isKitchenFree ?kitchen)
         (isKitchenBusy ?kitchen)
 
-        ;carrying restrictions
+        ;ideas
+        ;ordercapacity = 2
+        ;food waiting line
 
     )
 
     (:functions
 
-        (orderType ?order)
+        (order-cooking-time ?order)
         (time-to-walk ?from-loc ?to-loc)
-        (total-time-taken)  ;whats the earliest it can be done?
+        (total-time-taken)  ;cost for our durative actions
 
     )
 
@@ -69,7 +65,6 @@
             (at start (location ?to-loc))
             
             (at start(atWaiter ?waiter ?from-loc))
-            ;(over all(accessible ?from-loc ?to-loc))
         )
         :effect (and
             (at start(not(atWaiter ?waiter ?from-loc)))
@@ -84,12 +79,10 @@
             ;identity
             (waiter ?waiter)
             (table ?table) 
-            ;(location ?location)
             (order ?order)
-            ;(< (ordersCarrying ?waiter)1) ;can take 1 ord at a time
+
             (orderFrom ?order ?table)
             (atWaiter ?waiter ?table)
-            ;(atTable ?table ?location)
             (orderNotTaken ?table)
             (waiterFree ?waiter)
         )
@@ -97,7 +90,6 @@
             (not(orderNotTaken ?table))
             (orderTaken ?table)
             (holdingOrder ?waiter ?order)
-            ;(increase (ordersCarrying ?waiter)1)
             (not(waiterFree ?waiter))
             (foodNotReady ?order)
         )
@@ -109,17 +101,14 @@
             ;identity
             (kitchen ?kitchen)
             (waiter ?waiter)
-            ;(location ?location)
             (order ?order)
-            ;(=(ordersCarrying ?waiter)1)
+
             (holdingOrder ?waiter ?order)
             (atWaiter ?waiter ?kitchen)
-            ;(atKitchen ?kitchen ?location)
             (isKitchenFree ?kitchen)
             (foodNotReady ?order)
         )
         :effect (and
-            ;(decrease (ordersCarrying ?waiter)1)
             (kitchenHolding ?kitchen ?order)
             (not(holdingOrder ?waiter ?order))
             (not(isKitchenFree ?kitchen))
@@ -129,15 +118,13 @@
     )
 
     (:durative-action cook
-        :parameters (?kitchen ?order); deleted loc
-        :duration (= ?duration (orderType ?order))
+        :parameters (?kitchen ?order)
+        :duration (= ?duration (order-cooking-time ?order))
         :condition (and
             ;identity
-            ;(at start (location ?location))
             (at start (kitchen ?kitchen))
             (at start(order ?order))
 
-            ;(over all (atKitchen ?kitchen ?location))
             (over all (kitchenHolding ?kitchen ?order))
             (at start (isKitchenBusy ?kitchen)) 
         )
@@ -146,7 +133,7 @@
             (at start (not (isKitchenBusy ?kitchen)))
             (at end(foodReady ?order))
             (at start(not (foodNotReady ?order)))
-            (at end(increase(total-time-taken)(orderType ?order)))
+            (at end(increase(total-time-taken)(order-cooking-time ?order)))
         )
     )
 
@@ -156,17 +143,14 @@
             ;identity
             (kitchen ?kitchen)
             (waiter ?waiter)
-            ;(location ?location)
             (order ?order)
-            ;(< (foodCarrying ?waiter)1) 
+
             (atWaiter ?waiter ?kitchen)
-            ;(atKitchen ?kitchen ?location)
             (foodReady ?order) 
             (waiterFree ?waiter)
             (kitchenHolding ?kitchen ?order)
         )
         :effect (and
-            ;(increase (foodCarrying ?waiter)1) 
             (not (waiterFree ?waiter))
             (holdingOrder ?waiter ?order)
             (not (kitchenHolding ?kitchen ?order))
@@ -180,18 +164,15 @@
             ;identity
             (waiter ?waiter)
             (table ?table)
-            ;(location ?location)
             (order ?order)
-            ;(= (foodCarrying ?waiter)1) 
+
             (foodReady ?order) 
             (atWaiter ?waiter ?table)
-            ;(atTable ?table ?location)
             (holdingOrder ?waiter ?order)
             (orderFrom ?order ?table)
             (orderTaken ?table)
         )
         :effect (and
-            ;(decrease (foodCarrying ?waiter)1) 
             (foodDelivered ?table ?order)
             (not (holdingOrder ?waiter ?order))
             (waiterFree ?waiter)
