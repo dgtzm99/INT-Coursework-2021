@@ -5,6 +5,7 @@
     (:objects
             ;kitchen
             kitchen1
+            counter1
 
             ;waiters 
             waiter1 waiter2 waiter3
@@ -17,13 +18,13 @@
 
     (:init
         ;identity predicates
-        (kitchen kitchen1)
+        (kitchen kitchen1) (location kitchen1)
+        (counter counter1)
         (waiter waiter1) (waiter waiter2) (waiter waiter3)
         (table table1) (table table2) (table table3) 
         (table table4) (table table5) (table table6)
         (location table1) (location table2) (location table3) 
         (location table4) (location table5) (location table6)
-        (location kitchen1)
         (order order1) (order order2) (order order3) (order order4)
         (order order5) (order order6)
 
@@ -37,7 +38,8 @@
         (atWaiter waiter1 kitchen1) (atWaiter waiter2 kitchen1)
         (atWaiter waiter3 kitchen1)
 
-        ;restaurant layout
+        ;distances
+            ;kitchen2table
         (=(time-to-walk kitchen1 table1)10) (=(time-to-walk table1 kitchen1)10)
         (=(time-to-walk kitchen1 table2)10) (=(time-to-walk table2 kitchen1)10)
         (=(time-to-walk kitchen1 table3)20) (=(time-to-walk table3 kitchen1)20)
@@ -45,6 +47,7 @@
         (=(time-to-walk kitchen1 table5)30) (=(time-to-walk table5 kitchen1)30)
         (=(time-to-walk kitchen1 table6)30) (=(time-to-walk table6 kitchen1)30)
 
+            ;table2table
         (=(time-to-walk table1 table2)10) (=(time-to-walk table2 table1)10)
         (=(time-to-walk table1 table3)10) (=(time-to-walk table3 table1)10)
         (=(time-to-walk table2 table4)10) (=(time-to-walk table4 table2)10)
@@ -52,6 +55,8 @@
         (=(time-to-walk table3 table5)10) (=(time-to-walk table5 table3)10)
         (=(time-to-walk table4 table6)10) (=(time-to-walk table6 table4)10)
         (=(time-to-walk table5 table6)10) (=(time-to-walk table6 table5)10)
+
+            ;kitchen2kitchen
         
         
         ;table predicate
@@ -63,9 +68,18 @@
         (isKitchenFree kitchen1)
 
         ;functions
-        (=(order-cooking-time order1)2) (=(order-cooking-time order2)3) 
-        (=(order-cooking-time order3)3) (=(order-cooking-time order4)4)
-        (=(order-cooking-time order5)7) (=(order-cooking-time order6)5)
+            ;num_people * 600s (10 min)
+        (=(order-cooking-time order1)1200) (=(order-cooking-time order2)1800) 
+        (=(order-cooking-time order3)600) (=(order-cooking-time order4)1200)
+        (=(order-cooking-time order5)2400) (=(order-cooking-time order6)1200)
+
+        (= (people table1)2)
+        (= (people table2)3)
+        (= (people table3)1)
+        (= (people table4)2)
+        (= (people table5)4)
+        (= (people table6)2)
+
         (=(total-time-taken)0)
 
     )

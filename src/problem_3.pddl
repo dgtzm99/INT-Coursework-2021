@@ -1,11 +1,12 @@
 (define
-    (problem problem_2)
+    (problem problem_3)
     (:domain pizza_restaurant)
     ;(:situation <situation_name>) ;deprecated
     (:objects
             ;kitchen
             kitchen1 kitchen2 kitchen3 kitchen4 kitchen5
             kitchen6 kitchen7 kitchen8 kitchen9 kitchen10
+            counter1
 
             ;waiters 
             waiter1 ;waiter2; waiter3 waiter4 waiter5
@@ -36,6 +37,8 @@
         (kitchen kitchen8) (location kitchen8)
         (kitchen kitchen9) (location kitchen9)
         (kitchen kitchen10) (location kitchen10)
+
+        (counter counter1)
 
         (waiter waiter1) ;(waiter waiter2) ;(waiter waiter3) (waiter waiter4)
         ;(waiter waiter5) (waiter waiter6) (waiter waiter7) (waiter waiter8)
@@ -600,18 +603,28 @@
         (isKitchenFree kitchen10)
 
         ;functions
-        (=(order-cooking-time order1)1) (=(order-cooking-time order2)2)
-        (=(order-cooking-time order3)3) (=(order-cooking-time order4)4)
-        (=(order-cooking-time order5)5) (=(order-cooking-time order6)6)
-        (=(order-cooking-time order7)1) (=(order-cooking-time order8)2)
-        (=(order-cooking-time order9)3) (=(order-cooking-time order10)4)
-        (=(order-cooking-time order11)5) (=(order-cooking-time order12)6)
-        (=(order-cooking-time order13)1) (=(order-cooking-time order14)2)
-        (=(order-cooking-time order15)3) (=(order-cooking-time order16)4)
-        (=(order-cooking-time order17)5) (=(order-cooking-time order18)6)
-        (=(order-cooking-time order19)1) (=(order-cooking-time order20)2)
-        (=(order-cooking-time order21)3) (=(order-cooking-time order22)4)
-        (=(order-cooking-time order23)5) (=(order-cooking-time order24)6)
+            ;num_people * 600s (10 min)
+        (=(order-cooking-time order1)1200) (=(order-cooking-time order2)1800)
+        (=(order-cooking-time order3)2400) (=(order-cooking-time order4)1200)
+        (=(order-cooking-time order5)1800) (=(order-cooking-time order6)2400)
+        (=(order-cooking-time order7)1200) (=(order-cooking-time order8)1800)
+        (=(order-cooking-time order9)2400) (=(order-cooking-time order10)1200)
+        (=(order-cooking-time order11)1800) (=(order-cooking-time order12)2400)
+        (=(order-cooking-time order13)1200) (=(order-cooking-time order14)1800)
+        (=(order-cooking-time order15)2400) (=(order-cooking-time order16)1200)
+        (=(order-cooking-time order17)1800) (=(order-cooking-time order18)2400)
+        (=(order-cooking-time order19)1200) (=(order-cooking-time order20)1800)
+        (=(order-cooking-time order21)2400) (=(order-cooking-time order22)1200)
+        (=(order-cooking-time order23)1800) (=(order-cooking-time order24)2400)
+
+        (= (people table1)2) (= (people table2)3) (= (people table3)4)
+        (= (people table4)2) (= (people table5)3) (= (people table6)4)
+        (= (people table7)2) (= (people table8)3) (= (people table9)4)
+        (= (people table10)2) (= (people table11)3) (= (people table12)4)
+        (= (people table13)2) (= (people table14)3) (= (people table15)4)
+        (= (people table16)2) (= (people table17)3) (= (people table18)4)
+        (= (people table19)2) (= (people table20)3) (= (people table21)4)
+        (= (people table22)2) (= (people table23)3) (= (people table24)4)
        
         (=(total-time-taken)0)
 

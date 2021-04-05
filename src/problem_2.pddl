@@ -5,13 +5,13 @@
     (:objects
             ;kitchen
             kitchen1 kitchen2
+            counter1
 
             ;waiters 
             waiter1 waiter2 waiter3 waiter4 
 
             ;tables
             table1 table2 table3 table4 table5 table6
-
             order1 order2 order3 order4 order5 order6 
 
             )
@@ -20,6 +20,7 @@
         ;identity predicates
         (kitchen kitchen1) (location kitchen1)
         (kitchen kitchen2) (location kitchen2)
+        (counter counter1)
 
         (waiter waiter1) (waiter waiter2) (waiter waiter3) (waiter waiter4)
 
@@ -43,7 +44,7 @@
         (atWaiter waiter1 kitchen1) (atWaiter waiter2 kitchen1) (atWaiter waiter3 kitchen2)
         (atWaiter waiter4 kitchen2)
 
-        ;tile space
+        ;distances
             ;kitchen2table
         (=(time-to-walk kitchen1 table1)20) (=(time-to-walk table1 kitchen1)20)
         (=(time-to-walk kitchen1 table2)30) (=(time-to-walk table2 kitchen1)30)
@@ -97,12 +98,19 @@
         (isKitchenFree kitchen2)
 
         ;functions
-        (=(order-cooking-time order1)16) (=(order-cooking-time order2)23)
-        (=(order-cooking-time order3)14) (=(order-cooking-time order4)22)
-        (=(order-cooking-time order5)14) (=(order-cooking-time order6)32)
+            ;num_people * 600s (10 min)
+        (= (order-cooking-time order1) 1800) 
+        (= (order-cooking-time order2) 3600) 
+        (= (order-cooking-time order3) 1200) 
+        (= (order-cooking-time order4) 600) 
+        (= (order-cooking-time order5) 1800) 
+        (= (order-cooking-time order6) 1200) 
+
+        (= (people table1)3) (= (people table2)6)
+        (= (people table3)2) (= (people table4)1)
+        (= (people table5)3) (= (people table6)2)
        
         (=(total-time-taken)0)
-
 
     )
     (:goal (and
