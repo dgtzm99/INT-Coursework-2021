@@ -32,9 +32,6 @@
         (foodNotReady ?order)
         (isKitchenFree ?kitchen)
 
-        ;ideas
-        ;ordercapacity = 2
-
         ;food waiting line
         (counter-contains ?counter ?order)
 

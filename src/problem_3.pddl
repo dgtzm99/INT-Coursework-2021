@@ -9,8 +9,8 @@
             counter1
 
             ;waiters 
-            waiter1 ;waiter2; waiter3 waiter4 waiter5
-            ;waiter6 waiter7 waiter8 waiter9 waiter10
+            waiter1 waiter2 waiter3 waiter4 waiter5
+            waiter6 waiter7 waiter8 waiter9 waiter10
 
             ;tables
             table1 table2 table3 table4 table5 table6
@@ -40,9 +40,9 @@
 
         (counter counter1)
 
-        (waiter waiter1) ;(waiter waiter2) ;(waiter waiter3) (waiter waiter4)
-        ;(waiter waiter5) (waiter waiter6) (waiter waiter7) (waiter waiter8)
-        ;(waiter waiter9) (waiter waiter10) 
+        (waiter waiter1) (waiter waiter2) (waiter waiter3) (waiter waiter4)
+        (waiter waiter5) (waiter waiter6) (waiter waiter7) (waiter waiter8)
+        (waiter waiter9) (waiter waiter10) 
 
         (table table1) (table table2) (table table3) (table table4)
         (table table5) (table table6) (table table7) (table table8)
@@ -67,9 +67,9 @@
 
 
         ;order predicates
-        (waiterFree waiter1); (waiterFree waiter2) ;(waiterFree waiter3) (waiterFree waiter4)
-        ;(waiterFree waiter5) (waiterFree waiter6) (waiterFree waiter7) (waiterFree waiter8)
-        ;(waiterFree waiter9) (waiterFree waiter10) 
+        (waiterFree waiter1) (waiterFree waiter2) (waiterFree waiter3) (waiterFree waiter4)
+        (waiterFree waiter5) (waiterFree waiter6) (waiterFree waiter7) (waiterFree waiter8)
+        (waiterFree waiter9) (waiterFree waiter10) 
         (orderFrom order1 table1) (orderFrom order2 table2)
         (orderFrom order3 table3) (orderFrom order4 table4)
         (orderFrom order5 table5) (orderFrom order6 table6)
@@ -84,10 +84,10 @@
         (orderFrom order23 table23) (orderFrom order24 table24)
 
         ;locations
-        (atWaiter waiter1 kitchen1) ;(atWaiter waiter2 kitchen2); (atWaiter waiter3 kitchen2)
-        ;(atWaiter waiter4 kitchen2) (atWaiter waiter5 kitchen3) (atWaiter waiter6 kitchen3)
-        ;(atWaiter waiter7 kitchen4) (atWaiter waiter8 kitchen4) (atWaiter waiter9 kitchen5)
-        ;(atWaiter waiter10 kitchen5)
+        (atWaiter waiter1 kitchen1) (atWaiter waiter2 kitchen2) (atWaiter waiter3 kitchen2)
+        (atWaiter waiter4 kitchen2) (atWaiter waiter5 kitchen3) (atWaiter waiter6 kitchen3)
+        (atWaiter waiter7 kitchen4) (atWaiter waiter8 kitchen4) (atWaiter waiter9 kitchen5)
+        (atWaiter waiter10 kitchen5)
 
         ;tile space
             ;kitchen2table
