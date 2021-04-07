@@ -653,5 +653,5 @@
   
         )
     )
-    (:metric minimize (total-time-taken))
+    ;(:metric minimize (total-time-taken))
 )
