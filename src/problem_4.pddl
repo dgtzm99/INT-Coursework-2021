@@ -17,8 +17,8 @@
     )
     (:init
         ;identity predicates
-        (kitchen kitchen1) (location kitchen1)
-        (counter counter1)
+        (kitchen kitchen1) 
+        (counter counter1) (location counter1)
         (waiter waiter1) (waiter waiter2) (waiter waiter3)
         (table table1) (table table2) (table table3) (table table4)
         (location table1) (location table2) (location table3) 
@@ -31,15 +31,15 @@
         (orderFrom order3 table3) (orderFrom order4 table4)
         
         ;locations
-        (atWaiter waiter1 kitchen1) (atWaiter waiter2 kitchen1) 
-        (atWaiter waiter3 kitchen1)
+        (atWaiter waiter1 counter1) (atWaiter waiter2 counter1) 
+        (atWaiter waiter3 counter1)
 
         ;distances
-            ;kitchen2table
-        (=(time-to-walk kitchen1 table1)20) (=(time-to-walk table1 kitchen1)20)
-        (=(time-to-walk kitchen1 table2)20) (=(time-to-walk table2 kitchen1)20)
-        (=(time-to-walk kitchen1 table3)40) (=(time-to-walk table3 kitchen1)40)
-        (=(time-to-walk kitchen1 table4)40) (=(time-to-walk table4 kitchen1)40)
+            ;counter2table
+        (=(time-to-walk counter1 table1)20) (=(time-to-walk table1 counter1)20)
+        (=(time-to-walk counter1 table2)20) (=(time-to-walk table2 counter1)20)
+        (=(time-to-walk counter1 table3)40) (=(time-to-walk table3 counter1)40)
+        (=(time-to-walk counter1 table4)40) (=(time-to-walk table4 counter1)40)
 
             ;table2table
         (=(time-to-walk table1 table2)40) (=(time-to-walk table2 table1)40)
@@ -50,8 +50,6 @@
         (=(time-to-walk table2 table4)40) (=(time-to-walk table4 table2)40)
 
         (=(time-to-walk table3 table4)20) (=(time-to-walk table4 table3)20)
-
-            ;kitchen2kitchen
 
 
         ;table predicate
@@ -69,6 +67,7 @@
         (= (people table1)2) (= (people table2)1)
         (= (people table3)3) (= (people table4)2)
 
+            ;in case metric was enabled
         (=(total-time-taken)0)
     )
     (:goal (and
@@ -78,5 +77,5 @@
             (foodDelivered table4 order4)
         )
     )
-    (:metric minimize (total-time-taken))
+    ;(:metric minimize (total-time-taken))
 )

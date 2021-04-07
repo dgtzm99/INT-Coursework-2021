@@ -18,8 +18,8 @@
 
     (:init
         ;identity predicates
-        (kitchen kitchen1) (location kitchen1)
-        (counter counter1)
+        (kitchen kitchen1)
+        (counter counter1) (location counter1)
         (waiter waiter1) (waiter waiter2) (waiter waiter3)
         (table table1) (table table2) (table table3) 
         (table table4) (table table5) (table table6)
@@ -35,17 +35,17 @@
         (orderFrom order5 table5) (orderFrom order6 table6)  
 
         ;locations
-        (atWaiter waiter1 kitchen1) (atWaiter waiter2 kitchen1)
-        (atWaiter waiter3 kitchen1)
+        (atWaiter waiter1 counter1) (atWaiter waiter2 counter1)
+        (atWaiter waiter3 counter1)
 
         ;distances
-            ;kitchen2table
-        (=(time-to-walk kitchen1 table1)10) (=(time-to-walk table1 kitchen1)10)
-        (=(time-to-walk kitchen1 table2)10) (=(time-to-walk table2 kitchen1)10)
-        (=(time-to-walk kitchen1 table3)20) (=(time-to-walk table3 kitchen1)20)
-        (=(time-to-walk kitchen1 table4)20) (=(time-to-walk table4 kitchen1)20)
-        (=(time-to-walk kitchen1 table5)30) (=(time-to-walk table5 kitchen1)30)
-        (=(time-to-walk kitchen1 table6)30) (=(time-to-walk table6 kitchen1)30)
+            ;counter2table
+        (=(time-to-walk counter1 table1)10) (=(time-to-walk table1 counter1)10)
+        (=(time-to-walk counter1 table2)10) (=(time-to-walk table2 counter1)10)
+        (=(time-to-walk counter1 table3)20) (=(time-to-walk table3 counter1)20)
+        (=(time-to-walk counter1 table4)20) (=(time-to-walk table4 counter1)20)
+        (=(time-to-walk counter1 table5)30) (=(time-to-walk table5 counter1)30)
+        (=(time-to-walk counter1 table6)30) (=(time-to-walk table6 counter1)30)
 
             ;table2table
         (=(time-to-walk table1 table2)10) (=(time-to-walk table2 table1)10)
@@ -55,8 +55,6 @@
         (=(time-to-walk table3 table5)10) (=(time-to-walk table5 table3)10)
         (=(time-to-walk table4 table6)10) (=(time-to-walk table6 table4)10)
         (=(time-to-walk table5 table6)10) (=(time-to-walk table6 table5)10)
-
-            ;kitchen2kitchen
         
         
         ;table predicate
@@ -80,6 +78,7 @@
         (= (people table5)4)
         (= (people table6)2)
 
+            ;in case metric was enabled
         (=(total-time-taken)0)
 
     )
@@ -92,5 +91,5 @@
             (foodDelivered table6 order6)
         )
     )
-    (:metric minimize (total-time-taken))
+    ;(:metric minimize (total-time-taken))
 )

@@ -18,11 +18,16 @@
     (:init
 
         ;identity predicates
-        (kitchen kitchen1) (location kitchen1) 
-        (counter counter1)
+        (kitchen kitchen1) 
+
+        (counter counter1) (location counter1) 
+
         (waiter waiter1) (waiter waiter2) (waiter waiter3)
+
         (table table1) (table table2)
+
         (location table1) (location table2)
+
         (order order1) (order order2)
 
         ;order predicates
@@ -30,17 +35,15 @@
         (orderFrom order1 table1) (orderFrom order2 table2)
 
         ;locations
-        (atWaiter waiter1 kitchen1) (atWaiter waiter2 kitchen1) (atWaiter waiter3 kitchen1)
+        (atWaiter waiter1 counter1) (atWaiter waiter2 counter1) (atWaiter waiter3 counter1)
 
         ;distances
-            ;kitchen2table
-        (=(time-to-walk kitchen1 table1)20) (=(time-to-walk table1 kitchen1)20)
-        (=(time-to-walk kitchen1 table2)30) (=(time-to-walk table2 kitchen1)30)
+            ;counter2table
+        (=(time-to-walk counter1 table1)20) (=(time-to-walk table1 counter1)20)
+        (=(time-to-walk counter1 table2)30) (=(time-to-walk table2 counter1)30)
 
             ;table2table
         (=(time-to-walk table1 table2)10) (=(time-to-walk table2 table1)10)
-
-            ;kitchen2kitchen
 
 
         ;table predicate
@@ -55,6 +58,7 @@
 
         (= (people table1)4) (= (people table2)2)
 
+            ;in case metric was enabled
         (=(total-time-taken)0)
 
     )
@@ -65,5 +69,6 @@
 
         )
     )
-    (:metric minimize (total-time-taken))
+    
+    ;(:metric minimize (total-time-taken))
 )
