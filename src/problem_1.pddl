@@ -4,7 +4,7 @@
     ;(:situation <situation_name>) ;deprecated
     (:objects
             ;kitchen
-            kitchen1
+            cook1
             counter1
 
             ;waiters 
@@ -18,7 +18,7 @@
     (:init
 
         ;identity predicates
-        (kitchen kitchen1) 
+        (cook cook1) 
 
         (counter counter1) (location counter1) 
 
@@ -49,8 +49,8 @@
         ;table predicate
         (orderNotTaken table1) (orderNotTaken table2)
 
-        ;kitchen predicate
-        (isKitchenFree kitchen1)
+        ;cook predicate
+        (iscookFree cook1)
 
         ;functions
             ;num_people * 600s (10 min)

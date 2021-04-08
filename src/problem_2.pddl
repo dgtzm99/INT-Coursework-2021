@@ -3,8 +3,8 @@
     (:domain pizza_restaurant)
     ;(:situation <situation_name>) ;deprecated
     (:objects
-            ;kitchen
-            kitchen1 kitchen2
+            ;cook
+            cook1 cook2
             counter1
 
             ;waiters 
@@ -18,8 +18,8 @@
     (:init
 
         ;identity predicates
-        (kitchen kitchen1) 
-        (kitchen kitchen2) 
+        (cook cook1) 
+        (cook cook2) 
         (counter counter1) (location counter1)
 
         (waiter waiter1) (waiter waiter2) (waiter waiter3) (waiter waiter4)
@@ -82,9 +82,9 @@
         (orderNotTaken table5) (orderNotTaken table6)
 
 
-        ;kitchen predicate
-        (isKitchenFree kitchen1)
-        (isKitchenFree kitchen2)
+        ;cook predicate
+        (iscookFree cook1)
+        (iscookFree cook2)
 
         ;functions
             ;num_people * 600s (10 min)

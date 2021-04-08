@@ -8,7 +8,7 @@
 
         ;identity predicates
         (waiter ?waiter)
-        (kitchen ?kitchen)
+        (cook ?cook)
         (table ?table)
         (location ?location)
         (order ?order)
@@ -27,10 +27,10 @@
         (orderNotTaken ?table)
         (foodDelivered ?table ?order)
 
-        ;kitchen predicates
+        ;cook predicates
         (foodReady ?order)
         (foodNotReady ?order)
-        (isKitchenFree ?kitchen)
+        (iscookFree ?cook)
 
         ;food waiting line
         (counter-contains ?counter ?order)
@@ -110,22 +110,22 @@
         )
     )
 
-    (:durative-action cook
-        :parameters (?kitchen ?order ?counter)
+    (:durative-action cooking
+        :parameters (?cook ?order ?counter)
         :duration (= ?duration (order-cooking-time ?order))
         :condition (and
             ;identity
-            (at start (kitchen ?kitchen))
-            (at start(order ?order))
-            (at start(counter ?counter))
+            (at start (cook ?cook))
+            (at start (order ?order))
+            (at start (counter ?counter))
 
-            (at start (isKitchenFree ?kitchen))
+            (at start (iscookFree ?cook))
             (at start (counter-contains ?counter ?order))
             (at start (foodNotReady ?order))
         )
         :effect (and
-            (at end (isKitchenFree ?kitchen))
-            (at start (not (isKitchenFree ?kitchen)))
+            (at end (iscookFree ?cook))
+            (at start (not (iscookFree ?cook)))
             (at end (counter-contains ?counter ?order))
             (at start (not (counter-contains ?counter ?order)))
             (at end(foodReady ?order))

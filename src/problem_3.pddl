@@ -3,9 +3,9 @@
     (:domain pizza_restaurant)
     ;(:situation <situation_name>) ;deprecated
     (:objects
-            ;kitchen
-            kitchen1 kitchen2 kitchen3 kitchen4 kitchen5
-            kitchen6 kitchen7 kitchen8 kitchen9 kitchen10
+            ;cook
+            cook1 cook2 cook3 cook4 cook5
+            cook6 cook7 cook8 cook9 cook10
             counter1
 
             ;waiters 
@@ -26,16 +26,16 @@
     (:init
 
         ;identity predicates
-        (kitchen kitchen1) 
-        (kitchen kitchen2) 
-        (kitchen kitchen3) 
-        (kitchen kitchen4) 
-        (kitchen kitchen5) 
-        (kitchen kitchen6) 
-        (kitchen kitchen7) 
-        (kitchen kitchen8) 
-        (kitchen kitchen9) 
-        (kitchen kitchen10) 
+        (cook cook1) 
+        (cook cook2) 
+        (cook cook3) 
+        (cook cook4) 
+        (cook cook5) 
+        (cook cook6) 
+        (cook cook7) 
+        (cook cook8) 
+        (cook cook9) 
+        (cook cook10) 
 
         (counter counter1) (location counter1)
 
@@ -427,17 +427,17 @@
         (orderNotTaken table23) (orderNotTaken table24)
 
 
-        ;kitchen predicate
-        (isKitchenFree kitchen1)
-        (isKitchenFree kitchen2)
-        (isKitchenFree kitchen3)
-        (isKitchenFree kitchen4)
-        (isKitchenFree kitchen5)
-        (isKitchenFree kitchen6)
-        (isKitchenFree kitchen7)
-        (isKitchenFree kitchen8)
-        (isKitchenFree kitchen9)
-        (isKitchenFree kitchen10)
+        ;cook predicate
+        (iscookFree cook1)
+        (iscookFree cook2)
+        (iscookFree cook3)
+        (iscookFree cook4)
+        (iscookFree cook5)
+        (iscookFree cook6)
+        (iscookFree cook7)
+        (iscookFree cook8)
+        (iscookFree cook9)
+        (iscookFree cook10)
 
         ;functions
             ;num_people * 600s (10 min)
